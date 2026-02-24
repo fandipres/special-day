@@ -6,24 +6,18 @@
     
     <title>Special Day Countdown</title>
     <meta name="title" content="Special Day Countdown - Hitung Mundur Momen Spesialmu">
-    <meta name="description" content="Aplikasi hitung mundur (countdown) estetik dengan animasi 3D Flip Card. Buat, simpan, dan bagikan momen spesialmu seperti ulang tahun, pernikahan, atau hari libur!">
-    <meta name="keywords" content="countdown, hitung mundur, timer, hari spesial, event, flip card timer, kalender">
-    <meta name="author" content="Special Day App">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="Indonesian">
-    <meta name="theme-color" content="#4f46e5"> <meta property="og:type" content="website">
-    <meta property="og:url" content="https://special-day.com/"> <meta property="og:title" content="Special Day Countdown">
+    <meta name="description" content="Aplikasi hitung mundur estetik dengan animasi 3D Flip Card. Buat, simpan, dan bagikan momen spesialmu!">
+    <meta name="theme-color" content="#4f46e5">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://special-day.com/">
+    <meta property="og:title" content="Special Day Countdown">
     <meta property="og:description" content="Hitung mundur menuju hari spesialmu dengan animasi 3D Flip Card yang elegan. Buat dan bagikan sekarang!">
     <meta property="og:image" content="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1200&auto=format&fit=crop">
 
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://special-day.com/">
-    <meta property="twitter:title" content="Special Day Countdown">
-    <meta property="twitter:description" content="Hitung mundur menuju hari spesialmu dengan animasi 3D Flip Card yang elegan. Buat dan bagikan sekarang!">
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1200&auto=format&fit=crop">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -33,6 +27,7 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                        handwriting: ['Caveat', 'cursive'],
                     }
                 }
             }
@@ -40,57 +35,44 @@
     </script>
     <style>
         #fullscreen_area:fullscreen {
-            background-color: #0f172a;
-            display: flex !important; flex-direction: column !important;
+            background-color: #0f172a; display: flex !important; flex-direction: column !important;
             justify-content: center !important; align-items: center !important;
-            width: 100vw; height: 100vh; padding: 1rem; margin: 0;
-            border: none; border-radius: 0; box-shadow: none;
+            width: 100vw; height: 100vh; padding: 1rem; margin: 0; border: none; border-radius: 0; box-shadow: none;
         }
+        #fullscreen_area:fullscreen h2 { color: #f8fafc; font-size: clamp(1.5rem, 6vmin, 4.5rem) !important; margin-bottom: 0; line-height: 1.2; max-width: 90vw; }
         
-        #fullscreen_area:fullscreen h2 { 
-            color: #f8fafc; 
-            font-size: clamp(1.5rem, 6vmin, 4.5rem) !important; 
-            margin-bottom: 0; 
-            line-height: 1.2;
-            max-width: 90vw;
-        }
+        #fullscreen_area:fullscreen #event_date_subtitle { color: #94a3b8 !important; font-size: clamp(0.9rem, 3vmin, 1.8rem) !important; margin-top: 1.5vh !important; }
+        #fullscreen_area:fullscreen .title-wrapper { margin-bottom: 3vh !important; }
         
-        #fullscreen_area:fullscreen .title-wrapper { margin-bottom: 4vh !important; }
-        #fullscreen_area:fullscreen .title-wrapper svg { width: clamp(1.2rem, 3.5vmin, 2.5rem) !important; height: clamp(1.2rem, 3.5vmin, 2.5rem) !important; }
+        #fullscreen_area:fullscreen #btn_open_msg { background-color: rgba(255, 255, 255, 0.1); color: #f8fafc; border-color: rgba(255, 255, 255, 0.2); font-size: clamp(0.8rem, 2.5vmin, 1.5rem) !important; padding: 1vh 3vw !important; margin-top: 3vh !important; }
+        #fullscreen_area:fullscreen #btn_open_msg:hover { background-color: rgba(255, 255, 255, 0.2); }
+        
         #fullscreen_area:fullscreen .flex.justify-center.gap-2 { gap: clamp(0.5rem, 2.5vmin, 3rem) !important; }
-        
         #fullscreen_area:fullscreen #val_days, #fullscreen_area:fullscreen #val_hours, #fullscreen_area:fullscreen #val_minutes, #fullscreen_area:fullscreen #val_seconds {
-            height: clamp(5rem, 28vmin, 16rem) !important; 
-            min-width: clamp(4rem, 22vmin, 12rem) !important; 
-            font-size: clamp(3rem, 15vmin, 10rem) !important; 
-            border-radius: 1rem !important;
-            padding: 0 1rem !important;
+            height: clamp(5rem, 28vmin, 16rem) !important; min-width: clamp(4rem, 22vmin, 12rem) !important; 
+            font-size: clamp(3rem, 15vmin, 10rem) !important; border-radius: 1rem !important; padding: 0 1rem !important;
         }
         #fullscreen_area:fullscreen .fullscreen-label { font-size: clamp(0.75rem, 2.5vmin, 1.5rem) !important; margin-top: 2vmin !important; }
         
-        #fullscreen_area:fullscreen #btn_fullscreen {
-            display: block !important; position: fixed; top: 1rem; right: 1.5rem;
-            opacity: 1; z-index: 50; color: #94a3b8; background-color: rgba(255, 255, 255, 0.1); transform: scale(1.1);
-        }
-        #fullscreen_area:fullscreen #btn_share {
-            display: block !important; position: fixed; top: 1rem; right: 4.5rem; 
-            opacity: 1; z-index: 50; color: #94a3b8; background-color: rgba(255, 255, 255, 0.1); transform: scale(1.1);
-        }
-        #fullscreen_area:fullscreen #btn_fullscreen:hover, #fullscreen_area:fullscreen #btn_share:hover { color: #ffffff; background-color: rgba(255, 255, 255, 0.2); }
+        #fullscreen_area:fullscreen #action_toolbar { position: fixed !important; top: 1.5rem !important; right: 1.5rem !important; left: auto !important; transform: scale(1.1); }
+        #fullscreen_area:fullscreen #action_toolbar button { color: #94a3b8; background-color: rgba(255, 255, 255, 0.1); }
+        #fullscreen_area:fullscreen #action_toolbar button:hover { color: #ffffff; background-color: rgba(255, 255, 255, 0.2); }
         #fullscreen_area:fullscreen .icon-expand { display: none; }
         #fullscreen_area:fullscreen .icon-compress { display: block; }
-        
-        #fullscreen_area:fullscreen #message_done { 
-            font-size: clamp(1.5rem, 5vmin, 4rem) !important; 
-            position: absolute; bottom: 5vh; left: 50%; 
-            transform: translateX(-50%); width: 100%; 
-        }
+        #fullscreen_area:fullscreen #message_done { font-size: clamp(1.5rem, 5vmin, 4rem) !important; position: absolute; bottom: 5vh; left: 50%; transform: translateX(-50%); width: 100%; }
         ::backdrop { background-color: #0f172a; }
 
-        .flip-half {
-            position: absolute; left: 0; right: 0; height: 50%; overflow: hidden; display: flex; justify-content: center;
-            background-color: #1e293b; backface-visibility: hidden; -webkit-backface-visibility: hidden;
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        .smooth-expand { transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out; overflow: hidden; }
+
+        .flip-half { position: absolute; left: 0; right: 0; height: 50%; overflow: hidden; display: flex; justify-content: center; background-color: #1e293b; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
         .flip-half.top { top: 0; transform-origin: bottom; border-top-left-radius: inherit; border-top-right-radius: inherit; border-bottom: 1px solid rgba(0, 0, 0, 0.6); }
         .flip-half.bottom { bottom: 0; transform-origin: top; border-bottom-left-radius: inherit; border-bottom-right-radius: inherit; border-top: 1px solid rgba(255, 255, 255, 0.1); }
         .flip-half span { position: absolute; height: 200%; width: 100%; display: flex; align-items: center; justify-content: center; }
@@ -110,77 +92,193 @@
         <div class="absolute -top-10 -right-10 w-40 h-40 bg-indigo-50 rounded-full blur-3xl -z-10"></div>
         <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-50 rounded-full blur-3xl -z-10"></div>
 
-        <div id="controls_section" class="text-center flex flex-col items-center">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">SPECIAL DAY</h1>
+        <div id="controls_section" class="text-center flex flex-col items-center py-6 sm:py-8 transition-all duration-500">
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-8">SPECIAL DAY</h1>
             
-            <div class="flex items-center gap-3 mt-3 mb-5 bg-indigo-50 p-1.5 rounded-2xl border border-indigo-100 shadow-sm">
-                <button id="dec" class="w-8 h-8 flex items-center justify-center rounded-xl bg-white text-indigo-600 font-bold shadow-sm hover:bg-indigo-600 hover:text-white transition-all">-</button>
-                <span class="year text-xl font-black text-indigo-900 min-w-[3.5rem] text-center tracking-widest"></span>
-                <button id="inc" class="w-8 h-8 flex items-center justify-center rounded-xl bg-white text-indigo-600 font-bold shadow-sm hover:bg-indigo-600 hover:text-white transition-all">+</button>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-sm w-full mx-auto mb-2">
-                <input id="choosen_date" placeholder="Ketik (Misal: 1 Jan)" autocomplete="off" class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-700 text-base text-center focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all shadow-sm">
-                <button id="btn_open_modal" class="px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center justify-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    <span>Cari</span>
+            <div class="max-w-sm w-full mx-auto flex flex-col gap-4">
+                <div class="flex items-center bg-slate-50 border border-slate-200 rounded-xl overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 transition-all h-14">
+                    <input type="number" id="home_d" placeholder="Tgl" min="1" max="31" class="w-16 sm:w-20 h-full px-2 text-center bg-transparent border-r border-slate-200 outline-none text-slate-800 font-bold text-lg placeholder:font-normal leading-none">
+                    
+                    <div class="relative flex-1 h-full border-r border-slate-200">
+                        <select id="home_m" class="w-full h-full px-2 bg-transparent outline-none text-center text-slate-800 font-bold cursor-pointer appearance-none leading-none">
+                            <option value="" disabled selected class="font-normal text-slate-400">Bulan</option>
+                            <option value="JAN">Januari</option><option value="FEB">Februari</option>
+                            <option value="MAR">Maret</option><option value="APR">April</option>
+                            <option value="MEI">Mei</option><option value="JUN">Juni</option>
+                            <option value="JUL">Juli</option><option value="AGU">Agustus</option>
+                            <option value="SEP">September</option><option value="OKT">Oktober</option>
+                            <option value="NOV">November</option><option value="DES">Desember</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-2 flex items-center text-slate-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </div>
+
+                    <input type="number" id="home_y" placeholder="Tahun" class="w-20 sm:w-24 h-full px-2 text-center bg-transparent outline-none text-slate-800 font-bold text-lg placeholder:font-normal leading-none">
+                </div>
+                
+                <div class="flex gap-2 w-full">
+                    <button id="btn_home_start" class="flex-1 h-12 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition-all flex items-center justify-center gap-2">Mulai</button>
+                    <button id="btn_open_modal" class="px-5 h-12 bg-indigo-100 hover:bg-indigo-200 text-indigo-700 font-semibold rounded-xl transition-all flex items-center justify-center gap-2 shadow-sm" title="Pilih dari Daftar Event">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg> Daftar
+                    </button>
+                </div>
+
+                <button id="btn_home_add_msg" class="text-sm font-semibold text-indigo-500 hover:text-indigo-700 transition-colors flex items-center justify-center gap-1 mt-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    + Buat dengan Pesan Surat (Opsional)
                 </button>
             </div>
-            <p class="date-instruction text-[11px] sm:text-xs text-slate-400 mb-2">Ketik manual atau cari dari daftar event</p>
         </div>
 
-        <section id="fullscreen_area" class="mt-4 sm:mt-6 hidden p-5 sm:p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner relative transition-all duration-500 ease-in-out group">
+        <section id="fullscreen_area" class="hidden p-5 sm:p-6 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner relative transition-all duration-500 ease-in-out group pt-16 sm:pt-20">
             
-            <button id="btn_fullscreen" title="Layar Penuh / Keluar" class="absolute top-3 right-3 sm:top-4 sm:right-4 p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 z-50">
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 icon-expand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
-                <svg class="w-5 h-5 sm:w-6 sm:h-6 icon-compress hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h6m0 0v6m0-6l-7 7m17-11h-6m0 0V4m0 6l7-7M4 10h6m0 0V4m0 6l-7-7m17 11h-6m0 0v6m0-6l7 7"></path></svg>
-            </button>
-
-            <button id="btn_share" title="Salin Tautan" class="absolute top-3 right-12 sm:top-4 sm:right-14 p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 z-50">
-                <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-                <span id="share_tooltip" class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-lg opacity-0 transition-opacity whitespace-nowrap">Disalin!</span>
-            </button>
-
-            <div class="title-wrapper group flex items-center justify-center gap-2 w-fit mx-auto mb-4 sm:mb-5 relative">
-                <h2 id="event" contenteditable="true" spellcheck="false" title="Klik untuk mengubah nama momen!" class="text-lg sm:text-2xl font-bold text-indigo-900 text-center tracking-wide uppercase transition-all duration-300 outline-none border-b-2 border-transparent hover:border-indigo-200 focus:border-indigo-500 py-1 px-2 rounded-lg cursor-text min-w-[120px] m-0"></h2>
-                <svg class="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+            <div id="action_toolbar" class="absolute top-4 right-4 sm:top-5 sm:right-5 flex items-center gap-1 sm:gap-2 z-50 transition-all duration-300">
+                <button id="btn_open_settings" title="Pengaturan" class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </button>
+                <button id="btn_share" title="Bagikan" class="relative p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+                    <span id="share_tooltip" class="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded shadow-lg opacity-0 transition-opacity whitespace-nowrap pointer-events-none">Siap untuk Dibagikan!</span>
+                </button>
+                <button id="btn_fullscreen" title="Layar Penuh / Keluar" class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 icon-expand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                    <svg class="w-5 h-5 sm:w-6 sm:h-6 icon-compress hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h6m0 0v6m0-6l-7 7m17-11h-6m0 0V4m0 6l7-7M4 10h6m0 0V4m0 6l-7-7m17 11h-6m0 0v6m0-6l7 7"></path></svg>
+                </button>
             </div>
 
+            <div class="title-wrapper flex flex-col items-center justify-center mb-6 relative">
+                <h2 id="event" class="text-xl sm:text-3xl font-bold text-indigo-900 text-center tracking-wide uppercase transition-all duration-300 min-w-[120px] m-0 break-words max-w-full px-4"></h2>
+                
+                <p id="event_date_subtitle" class="text-xs sm:text-sm font-semibold text-slate-500 mt-1 sm:mt-2 uppercase tracking-widest hidden"></p>
+                
+                <button id="btn_open_msg" class="hidden mt-3 sm:mt-4 px-4 py-1.5 bg-white border border-slate-200 text-indigo-600 text-sm font-semibold rounded-full shadow-sm hover:bg-indigo-50 hover:border-indigo-200 transition-all flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> Buka Pesan
+                </button>
+            </div>
+            
             <div class="flex justify-center gap-2 sm:gap-4 w-full">
                 <div class="flex flex-col items-center">
-                    <div id="val_days" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[3.5rem] sm:min-w-[4.5rem] px-1 sm:px-2 h-16 sm:h-20 text-3xl sm:text-5xl font-bold font-mono text-white flex justify-center perspective-[1000px] transition-all duration-300"></div>
+                    <div id="val_days" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[3.5rem] sm:min-w-[4.5rem] px-1 sm:px-2 h-16 sm:h-20 text-3xl sm:text-5xl font-bold font-mono text-white flex justify-center perspective-[1000px] transition-all duration-300 leading-none"></div>
                     <span class="text-[10px] sm:text-xs font-semibold text-slate-500 mt-2 uppercase tracking-widest fullscreen-label">Hari</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div id="val_hours" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[3.5rem] sm:min-w-[4.5rem] px-1 sm:px-2 h-16 sm:h-20 text-3xl sm:text-5xl font-bold font-mono text-white flex justify-center perspective-[1000px] transition-all duration-300"></div>
+                    <div id="val_hours" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[3.5rem] sm:min-w-[4.5rem] px-1 sm:px-2 h-16 sm:h-20 text-3xl sm:text-5xl font-bold font-mono text-white flex justify-center perspective-[1000px] transition-all duration-300 leading-none"></div>
                     <span class="text-[10px] sm:text-xs font-semibold text-slate-500 mt-2 uppercase tracking-widest fullscreen-label">Jam</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div id="val_minutes" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[3.5rem] sm:min-w-[4.5rem] px-1 sm:px-2 h-16 sm:h-20 text-3xl sm:text-5xl font-bold font-mono text-white flex justify-center perspective-[1000px] transition-all duration-300"></div>
+                    <div id="val_minutes" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[3.5rem] sm:min-w-[4.5rem] px-1 sm:px-2 h-16 sm:h-20 text-3xl sm:text-5xl font-bold font-mono text-white flex justify-center perspective-[1000px] transition-all duration-300 leading-none"></div>
                     <span class="text-[10px] sm:text-xs font-semibold text-slate-500 mt-2 uppercase tracking-widest fullscreen-label">Menit</span>
                 </div>
                 <div class="flex flex-col items-center">
-                    <div id="val_seconds" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[3.5rem] sm:min-w-[4.5rem] px-1 sm:px-2 h-16 sm:h-20 text-3xl sm:text-5xl font-bold font-mono text-indigo-400 flex justify-center perspective-[1000px] transition-all duration-300"></div>
+                    <div id="val_seconds" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[3.5rem] sm:min-w-[4.5rem] px-1 sm:px-2 h-16 sm:h-20 text-3xl sm:text-5xl font-bold font-mono text-indigo-400 flex justify-center perspective-[1000px] transition-all duration-300 leading-none"></div>
                     <span class="text-[10px] sm:text-xs font-semibold text-slate-500 mt-2 uppercase tracking-widest fullscreen-label">Detik</span>
                 </div>
             </div>
             
-            <p id="message_done" class="hidden mt-4 sm:mt-5 text-lg sm:text-xl font-bold text-rose-500 animate-pulse text-center"></p>
+            <p id="message_done" class="hidden mt-4 sm:mt-5 text-lg sm:text-xl font-bold text-rose-500 animate-pulse text-center leading-none"></p>
         </section>
     </main>
 
-    <div id="event_modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-        <div id="modal_overlay" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"></div>
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 z-10 flex flex-col max-h-[85vh] overflow-hidden transform transition-transform scale-95 opacity-0" id="modal_content">
+    <div id="settings_modal" class="fixed inset-0 z-[60] flex items-center justify-center hidden p-4">
+        <div id="settings_overlay" class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto z-10 flex flex-col overflow-hidden transform transition-transform scale-95 opacity-0" id="settings_content">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    Pengaturan
+                </h3>
+                <button id="btn_close_settings" class="text-slate-400 hover:text-rose-500 transition-colors p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            
+            <div class="p-5 overflow-y-auto max-h-[65vh]">
+                <div class="mb-4">
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Tanggal</label>
+                    <div class="flex items-center bg-white border border-slate-200 rounded-lg overflow-hidden shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 transition-all mb-2 h-11">
+                        <input type="number" id="set_d" placeholder="Tgl" min="1" max="31" class="w-14 sm:w-16 h-full px-2 text-center bg-transparent border-r border-slate-200 outline-none text-slate-800 font-semibold text-sm leading-none">
+                        <div class="relative flex-1 h-full border-r border-slate-200">
+                            <select id="set_m" class="w-full h-full px-2 bg-transparent outline-none text-center text-slate-800 font-semibold cursor-pointer appearance-none text-sm leading-none">
+                                <option value="" disabled selected>Bulan</option>
+                                <option value="JAN">Januari</option><option value="FEB">Februari</option>
+                                <option value="MAR">Maret</option><option value="APR">April</option>
+                                <option value="MEI">Mei</option><option value="JUN">Juni</option>
+                                <option value="JUL">Juli</option><option value="AGU">Agustus</option>
+                                <option value="SEP">September</option><option value="OKT">Oktober</option>
+                                <option value="NOV">November</option><option value="DES">Desember</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-1 flex items-center text-slate-400"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>
+                        </div>
+                        <input type="number" id="set_y" placeholder="Tahun" class="w-16 sm:w-20 h-full px-2 text-center bg-transparent outline-none text-slate-800 font-semibold text-sm leading-none">
+                    </div>
+                    <button id="btn_settings_browse" class="w-full py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-semibold rounded-lg text-sm transition-all shadow-sm flex items-center justify-center gap-1 border border-indigo-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg> Cari Event di Tahun <span id="text_settings_year_btn"></span>
+                    </button>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Judul Countdown</label>
+                    <input type="text" id="input_title" placeholder="Cth: Ulang Tahun Ibu" class="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-800 font-medium transition-colors">
+                </div>
+
+                <hr class="border-slate-200 my-4">
+
+                <button id="btn_toggle_msg" class="w-full flex items-center justify-between text-left text-sm font-bold text-slate-700 hover:text-indigo-600 transition-colors">
+                    <span class="flex items-center gap-2">💌 Tambahkan Pesan Personal</span>
+                    <svg id="icon_toggle_msg" class="w-5 h-5 transition-transform duration-300 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+
+                <div id="container_msg_fields" class="smooth-expand max-h-0 opacity-0 flex flex-col gap-3 mt-0">
+                    <div class="grid grid-cols-2 gap-3 mt-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Untuk</label>
+                            <input type="text" id="input_receiver" placeholder="Cth: Ibu" class="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-800">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Dari</label>
+                            <input type="text" id="input_sender" placeholder="Cth: Anakmu" class="w-full h-10 px-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-800">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Pesan</label>
+                        <textarea id="input_message" rows="3" placeholder="Ketik pesan spesialmu..." class="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-800 resize-none"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t border-slate-100 bg-slate-50 flex flex-col gap-2">
+                <button id="btn_save_settings" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition-all">Simpan</button>
+                <button id="btn_reset_home" class="w-full py-1.5 text-slate-500 hover:text-rose-500 font-medium text-sm transition-colors">Kembali</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="event_modal" style="z-index: 70;" class="fixed inset-0 flex items-center justify-center hidden p-4">
+        <div id="modal_overlay" class="absolute inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity"></div>
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto z-10 flex flex-col max-h-[85vh] overflow-hidden transform transition-transform scale-95 opacity-0" id="modal_content">
             <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
                 <h3 class="text-base font-bold text-slate-800">Pilih Hari Spesial</h3>
                 <button id="btn_close_modal" class="text-slate-400 hover:text-rose-500 transition-colors p-1"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
             </div>
             <div class="p-4 border-b border-slate-100 relative">
                 <svg class="w-4 h-4 absolute left-7 top-7 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input id="modal_search" type="text" placeholder="Cari event..." class="w-full pl-10 pr-4 py-2.5 bg-slate-100 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-colors text-slate-700">
+                <input id="modal_search" type="text" placeholder="Cari event..." class="w-full pl-10 pr-4 py-2.5 bg-slate-100 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700">
             </div>
             <ul id="modal_list" class="overflow-y-auto flex-1 p-2 space-y-1 text-sm"></ul>
+        </div>
+    </div>
+
+    <div id="read_msg_modal" style="z-index: 80;" class="fixed inset-0 flex items-center justify-center hidden p-4">
+        <div id="read_msg_overlay" class="absolute inset-0 bg-slate-900/70 backdrop-blur-sm transition-opacity"></div>
+        <div class="bg-[#fdfaf3] rounded-2xl shadow-2xl w-full max-w-lg mx-auto z-10 flex flex-col p-8 sm:p-10 relative transform transition-transform scale-95 opacity-0 border border-amber-100 max-h-[90vh] overflow-y-auto" id="read_msg_content">
+            <button id="btn_close_read_msg" class="absolute top-4 right-4 text-slate-400 hover:text-rose-500 transition-colors p-2 bg-white/50 rounded-full"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            
+            <h3 id="display_msg_title" class="text-xl sm:text-2xl font-bold text-center text-slate-800 mb-6 font-sans uppercase tracking-widest border-b border-amber-200 pb-4"></h3>
+            
+            <div class="font-handwriting text-2xl sm:text-3xl text-slate-700 leading-relaxed">
+                <p id="display_msg_to" class="mb-4 font-semibold text-slate-800"></p>
+                <p id="display_msg_text" class="text-justify mb-8 whitespace-pre-wrap text-slate-600"></p>
+                <p id="display_msg_from" class="text-right font-semibold text-slate-800"></p>
+            </div>
         </div>
     </div>
 
