@@ -3,15 +3,17 @@ let currentDateInput = "";
 let currentMonthInput = "";
 let currentYear = new Date().getFullYear();
 let prevDays, prevHours, prevMins, prevSecs;
+let confettiFired = false; 
 
 const el_choosen_date = document.getElementById("choosen_date");
 const el_event = document.getElementById("event");
 const el_inc = document.getElementById("inc");
 const el_dec = document.getElementById("dec");
 const el_year = document.querySelectorAll(".year");
-
 const fullscreen_area = document.getElementById("fullscreen_area");
 const btn_fullscreen = document.getElementById("btn_fullscreen");
+const btn_share = document.getElementById("btn_share");
+const share_tooltip = document.getElementById("share_tooltip");
 const val_days = document.getElementById("val_days");
 const val_hours = document.getElementById("val_hours");
 const val_minutes = document.getElementById("val_minutes");
@@ -29,12 +31,52 @@ const modal_list = document.getElementById("modal_list");
 const month_mappings = { "JAN": "Jan", "FEB": "Feb", "MAR": "Mar", "APR": "Apr", "MEI": "May", "JUN": "Jun", "JUL": "Jul", "AGU": "Aug", "SEP": "Sep", "OKT": "Oct", "NOV": "Nov", "DES": "Dec" };
 const full_month_mappings = { "JAN": "Januari", "FEB": "Februari", "MAR": "Maret", "APR": "April", "MEI": "Mei", "JUN": "Juni", "JUL": "Juli", "AGU": "Agustus", "SEP": "September", "OKT": "Oktober", "NOV": "November", "DES": "Desember" };
 
-UpdateYearDisplay(currentYear);
+window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramDate = urlParams.get('d');
+    const paramMonth = urlParams.get('m');
+    const paramTitle = urlParams.get('t');
+    const paramYear = urlParams.get('y');
+
+    if (paramDate && paramMonth) {
+        currentYear = paramYear ? parseInt(paramYear) : new Date().getFullYear();
+        UpdateYearDisplay(currentYear);
+        let fullInput = `${paramDate} ${paramMonth}`;
+        el_choosen_date.value = fullInput;
+        processInput(fullInput, paramTitle);
+        return; 
+    }
+
+    const savedDate = localStorage.getItem("sd_date");
+    const savedMonth = localStorage.getItem("sd_month");
+    const savedTitle = localStorage.getItem("sd_title");
+    const savedYear = localStorage.getItem("sd_year");
+
+    if (savedDate && savedMonth) {
+        currentYear = savedYear ? parseInt(savedYear) : new Date().getFullYear();
+        UpdateYearDisplay(currentYear);
+        let fullIndoMonth = full_month_mappings[Object.keys(month_mappings).find(key => month_mappings[key] === savedMonth)] || savedMonth; 
+        el_choosen_date.value = `${savedDate} ${fullIndoMonth.slice(0,3).toUpperCase()}`;
+        setEventTitle(savedTitle || `${savedDate} ${fullIndoMonth}`, savedDate, savedMonth, currentYear);
+    } else {
+        UpdateYearDisplay(currentYear);
+    }
+};
+
+btn_share.addEventListener("click", () => {
+    if (!currentDateInput || !currentMonthInput) return;
+    let indoMonthCode = Object.keys(month_mappings).find(key => month_mappings[key] === currentMonthInput) || currentMonthInput;
+    let customTitle = el_event.innerText;
+    let shareUrl = `${window.location.origin}${window.location.pathname}?d=${currentDateInput}&m=${indoMonthCode}&y=${currentYear}&t=${encodeURIComponent(customTitle)}`;
+    navigator.clipboard.writeText(shareUrl).then(() => {
+        share_tooltip.classList.remove("opacity-0");
+        setTimeout(() => share_tooltip.classList.add("opacity-0"), 2000);
+    });
+});
 
 btn_open_modal.addEventListener("click", openModal);
 btn_close_modal.addEventListener("click", closeModal);
 modal_overlay.addEventListener("click", closeModal);
-
 modal_search.addEventListener("input", function() { renderModalList(this.value); });
 
 function openModal() {
@@ -82,7 +124,15 @@ function renderModalList(searchQuery) {
 
 btn_fullscreen.addEventListener("click", () => {
     if (!document.fullscreenElement) {
-        fullscreen_area.requestFullscreen().catch(err => alert(`Tidak bisa Fullscreen: ${err.message}`));
+        fullscreen_area.requestFullscreen().then(() => {
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch((err) => {
+                    console.log("Perangkat tidak mendukung pemaksaan landscape, diabaikan.");
+                });
+            }
+        }).catch(err => {
+            alert(`Tidak bisa Fullscreen: ${err.message}`);
+        });
     } else {
         document.exitFullscreen();
     }
@@ -93,6 +143,9 @@ document.addEventListener("fullscreenchange", () => {
     if (document.fullscreenElement) {
         labels.forEach(l => { l.classList.remove("text-slate-500"); l.classList.add("text-slate-400"); });
     } else {
+        if (screen.orientation && screen.orientation.unlock) {
+            screen.orientation.unlock();
+        }
         labels.forEach(l => { l.classList.add("text-slate-500"); l.classList.remove("text-slate-400"); });
     }
 });
@@ -142,6 +195,12 @@ function setEventTitle(title, dateStr, monthStr, year) {
     el_event.innerHTML = title.toUpperCase();
     currentDateInput = dateStr;
     currentMonthInput = monthStr;
+    
+    localStorage.setItem("sd_date", dateStr);
+    localStorage.setItem("sd_month", monthStr);
+    localStorage.setItem("sd_title", title.toUpperCase());
+    localStorage.setItem("sd_year", year);
+
     StartCountDown(dateStr, monthStr, year);
 }
 
@@ -188,7 +247,7 @@ function resetDisplay() {
 
 function showError(message) {
     fullscreen_area.classList.remove("hidden");
-    el_event.innerHTML = "⚠️ INPUT TIDAK VALID ⚠️";
+    el_event.innerHTML = "⚠️ INPUT TIDAK VALID";
     
     updateCardValue(val_days, "00", prevDays);
     updateCardValue(val_hours, "00", prevHours);
@@ -238,10 +297,24 @@ function ChangeYear(action) {
     }
 }
 
+function fireConfetti() {
+    if (typeof confetti !== 'function') return; 
+    let duration = 3000;
+    let end = Date.now() + duration;
+
+    (function frame() {
+        confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#4f46e5', '#818cf8', '#ffffff'] });
+        confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#4f46e5', '#818cf8', '#ffffff'] });
+        if (Date.now() < end) { requestAnimationFrame(frame); }
+    }());
+}
+
 function StartCountDown(date, month, year) {
     clearInterval(countdownInterval);
     if (!date || !month) return;
 
+    confettiFired = false; 
+    
     fullscreen_area.classList.remove("hidden");
     message_done.classList.add("hidden");
     message_done.classList.remove("text-amber-500");
@@ -261,6 +334,8 @@ function calculateTimeLeft(targetTime) {
         updateCardValue(val_days, "00", prevDays); updateCardValue(val_hours, "00", prevHours);
         updateCardValue(val_minutes, "00", prevMins); updateCardValue(val_seconds, "00", prevSecs);
         message_done.classList.remove("hidden");
+        
+        if (!confettiFired) { fireConfetti(); confettiFired = true; }
         return;
     }
 
@@ -294,6 +369,7 @@ function updateCardValue(element, newValue, prevValue) {
 }
 
 el_event.addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); this.blur(); }});
+
 el_event.addEventListener("blur", function() {
     let currentText = this.innerText.trim();
     if (currentText === "") {
@@ -303,9 +379,14 @@ el_event.addEventListener("blur", function() {
         } else {
              this.innerText = "MOMEN SPESIAL".toUpperCase();
         }
-    } else { this.innerText = currentText.toUpperCase(); }
+    } else { 
+        this.innerText = currentText.toUpperCase(); 
+    }
+    
+    localStorage.setItem("sd_title", this.innerText);
     window.scrollTo(0, 0); 
 });
+
 el_event.addEventListener("focus", function() {
     const range = document.createRange(); range.selectNodeContents(this);
     const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
