@@ -1,7 +1,6 @@
 let event = [
     // Data Personal
-    { label: "Happy Anniversary", date: "0623" },
-    { label: "Happy Birthday Angel", date: "0326" },
+    { label: "Happy Anniversary", date: "0328" },
     { label: "Happy Birthday Fandi", date: "0902" },
     { label: "Happy Birthday Evelyn", date: "0821" },
     { label: "Happy Birthday Juliana", date: "0707" },
