@@ -1,34 +1,224 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Special Day Countdown</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        #fullscreen_area:fullscreen {
+            background-color: #0f172a;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100vw; height: 100vh;
+            padding: 2rem; margin: 0;
+            border: none; border-radius: 0; box-shadow: none;
+        }
+
+        #fullscreen_area:fullscreen h2 {
+            color: #f8fafc;
+            font-size: clamp(3rem, 6vw, 6rem) !important; 
+            margin-bottom: 0;
+            line-height: 1.2;
+        }
+
+        #fullscreen_area:fullscreen .title-wrapper {
+            margin-bottom: 8vh;
+        }
+        
+        #fullscreen_area:fullscreen .title-wrapper svg {
+            width: clamp(2rem, 4vw, 3rem) !important;
+            height: clamp(2rem, 4vw, 3rem) !important;
+        }
+
+        #fullscreen_area:fullscreen .flex.justify-center.gap-3 {
+            gap: clamp(1.5rem, 4vw, 4rem) !important;
+        }
+
+        #fullscreen_area:fullscreen #val_days,
+        #fullscreen_area:fullscreen #val_hours,
+        #fullscreen_area:fullscreen #val_minutes,
+        #fullscreen_area:fullscreen #val_seconds {
+            height: clamp(8rem, 25vh, 18rem) !important;
+            min-width: clamp(6rem, 15vw, 12rem) !important;
+            font-size: clamp(4rem, 15vh, 12rem) !important;
+            border-radius: 1.5rem !important;
+        }
+
+        #fullscreen_area:fullscreen .fullscreen-label {
+            font-size: clamp(1rem, 3vh, 2rem) !important;
+            margin-top: 2.5vh !important;
+        }
+
+        #fullscreen_area:fullscreen #btn_fullscreen {
+            display: block !important;
+            position: fixed; top: 1.5rem; right: 2rem;
+            opacity: 1; z-index: 50;
+            color: #94a3b8; background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.3); 
+        }
+
+        #fullscreen_area:fullscreen #btn_fullscreen:hover {
+            color: #ffffff; background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #fullscreen_area:fullscreen .icon-expand { display: none; }
+        #fullscreen_area:fullscreen .icon-compress { display: block; }
+
+        #fullscreen_area:fullscreen #message_done {
+            font-size: clamp(2rem, 5vw, 4rem) !important;
+            position: absolute; bottom: 10vh; left: 50%;
+            transform: translateX(-50%); width: 100%;
+        }
+
+        ::backdrop { background-color: #0f172a; }
+
+        .flip-half {
+            position: absolute;
+            left: 0; right: 0;
+            height: 50%;
+            overflow: hidden;
+            display: flex; justify-content: center;
+            background-color: #1e293b;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        .flip-half.top {
+            top: 0;
+            transform-origin: bottom;
+            border-top-left-radius: inherit; border-top-right-radius: inherit;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+        }
+
+        .flip-half.bottom {
+            bottom: 0;
+            transform-origin: top;
+            border-bottom-left-radius: inherit; border-bottom-right-radius: inherit;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .flip-half span {
+            position: absolute;
+            height: 200%; width: 100%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .flip-half.top span { top: 0; }
+        .flip-half.bottom span { bottom: 0; }
+
+        .flip-top { animation: flipDownTop 0.25s ease-in forwards; z-index: 5; }
+        .flip-bottom { transform: rotateX(90deg); animation: flipDownBottom 0.25s ease-out 0.25s forwards; z-index: 4; }
+
+        @keyframes flipDownTop {
+            0% { transform: rotateX(0deg); }
+            100% { transform: rotateX(-90deg); }
+        }
+        @keyframes flipDownBottom {
+            0% { transform: rotateX(90deg); }
+            100% { transform: rotateX(0deg); }
+        }
+    </style>
 </head>
 
-<body>
-    <div class="d-flex align-items-center justify-content-center" style="min-height: 100vh;">
-        <div class="container text-center">
-            <h1 id="title">SPECIAL DAY <span class="year"></span></h1>
-            <p>Not in <span class="year mb-5"></span>? Change the year by clicking <b><span id="inc">+</span></b> or
-                <b><span id="dec">-</span></b>
-            </p>
-            <input id="choosen_date" list="date_list" placeholder="Please enter or choose the date..."
-                class="form-control col-md-4">
-            <datalist id="date_list"></datalist>
-            <p class="date-instruction mb-5">Please enter the date in the format: DD MMM (e.g., 25 Des)</p>
-            <div class="mb-5">
-                <h2 id="event"></h2>
-                <h3 id="countdown"></h3>
+<body class="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen flex items-center justify-center font-sans text-slate-800 antialiased p-4 overflow-hidden relative">
+
+    <main id="main_card" class="bg-white rounded-3xl shadow-2xl shadow-slate-200/50 w-full max-w-2xl p-6 sm:p-12 border border-slate-100 relative transition-all duration-300">
+
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-indigo-50 rounded-full blur-3xl -z-10"></div>
+        <div class="absolute -bottom-10 -left-10 w-40 h-40 bg-blue-50 rounded-full blur-3xl -z-10"></div>
+
+        <div id="controls_section" class="text-center flex flex-col items-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">SPECIAL DAY</h1>
+
+            <div class="flex items-center gap-4 mt-4 mb-8 bg-indigo-50 p-1.5 rounded-2xl border border-indigo-100 shadow-sm">
+                <button id="dec" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-indigo-600 font-bold shadow-sm hover:bg-indigo-600 hover:text-white transition-all focus:ring-2 focus:ring-indigo-400">-</button>
+                <span class="year text-2xl font-black text-indigo-900 min-w-[4rem] text-center tracking-widest"></span>
+                <button id="inc" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white text-indigo-600 font-bold shadow-sm hover:bg-indigo-600 hover:text-white transition-all focus:ring-2 focus:ring-indigo-400">+</button>
             </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 max-w-md w-full mx-auto mb-2">
+                <input id="choosen_date" placeholder="Ketik (Misal: 1 Jan)" autocomplete="off" class="flex-1 px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-700 text-lg sm:text-xl text-center focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all shadow-sm placeholder:text-slate-400">
+                <button id="btn_open_modal" class="px-6 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-2xl shadow-lg shadow-indigo-200 transition-all flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <span>Cari</span>
+                </button>
+            </div>
+            <p class="date-instruction text-xs sm:text-sm text-slate-400 mb-4">Ketik manual atau cari dari daftar event</p>
+        </div>
+
+        <section id="fullscreen_area" class="mt-8 hidden p-6 sm:p-10 bg-slate-50 rounded-3xl border border-slate-100 shadow-inner relative transition-all duration-500 ease-in-out group">
+
+            <button id="btn_fullscreen" title="Layar Penuh / Keluar" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 z-50">
+                <svg class="w-6 h-6 icon-expand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                <svg class="w-6 h-6 icon-compress hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 14h6m0 0v6m0-6l-7 7m17-11h-6m0 0V4m0 6l7-7M4 10h6m0 0V4m0 6l-7-7m17 11h-6m0 0v6m0-6l7 7"></path></svg>
+            </button>
+
+            <div class="title-wrapper group flex items-center justify-center gap-2 w-fit mx-auto mb-8 relative">
+                <h2 id="event" contenteditable="true" spellcheck="false" title="Klik untuk mengubah nama momen!" class="text-xl sm:text-3xl font-bold text-indigo-900 text-center tracking-wide uppercase transition-all duration-300 outline-none border-b-2 border-transparent hover:border-indigo-200 focus:border-indigo-500 py-1 px-2 rounded-lg cursor-text min-w-[150px] m-0"></h2>
+                <svg class="w-5 h-5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                </svg>
+            </div>
+
+            <div class="flex justify-center gap-3 sm:gap-6 w-full">
+                <div class="flex flex-col items-center">
+                    <div id="val_days" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[4.5rem] sm:min-w-[5.5rem] px-2 h-20 sm:h-28 text-4xl sm:text-6xl font-bold font-mono text-white flex justify-center perspective-[1000px] transition-all duration-300"></div>
+                    <span class="text-xs sm:text-sm font-semibold text-slate-500 mt-3 uppercase tracking-widest fullscreen-label">Hari</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="val_hours" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[4.5rem] sm:min-w-[5.5rem] px-2 h-20 sm:h-28 text-4xl sm:text-6xl font-bold font-mono text-white flex justify-center perspective-[1000px] transition-all duration-300"></div>
+                    <span class="text-xs sm:text-sm font-semibold text-slate-500 mt-3 uppercase tracking-widest fullscreen-label">Jam</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="val_minutes" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[4.5rem] sm:min-w-[5.5rem] px-2 h-20 sm:h-28 text-4xl sm:text-6xl font-bold font-mono text-white flex justify-center perspective-[1000px] transition-all duration-300"></div>
+                    <span class="text-xs sm:text-sm font-semibold text-slate-500 mt-3 uppercase tracking-widest fullscreen-label">Menit</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div id="val_seconds" class="relative bg-slate-800 rounded-xl shadow-xl min-w-[4.5rem] sm:min-w-[5.5rem] px-2 h-20 sm:h-28 text-4xl sm:text-6xl font-bold font-mono text-indigo-400 flex justify-center perspective-[1000px] transition-all duration-300"></div>
+                    <span class="text-xs sm:text-sm font-semibold text-slate-500 mt-3 uppercase tracking-widest fullscreen-label">Detik</span>
+                </div>
+            </div>
+
+            <p id="message_done" class="hidden mt-8 text-xl sm:text-2xl font-bold text-rose-500 animate-pulse text-center"></p>
+        </section>
+    </main>
+
+    <div id="event_modal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div id="modal_overlay" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"></div>
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 z-10 flex flex-col max-h-[85vh] overflow-hidden transform transition-transform scale-95 opacity-0" id="modal_content">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+                <h3 class="text-lg font-bold text-slate-800">Pilih Hari Spesial</h3>
+                <button id="btn_close_modal" class="text-slate-400 hover:text-rose-500 transition-colors p-1"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+            </div>
+            <div class="p-4 border-b border-slate-100 relative">
+                <svg class="w-5 h-5 absolute left-7 top-7 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                <input id="modal_search" type="text" placeholder="Cari event... (contoh: Pahlawan)" class="w-full pl-10 pr-4 py-3 bg-slate-100 border-none rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-colors text-slate-700">
+            </div>
+            <ul id="modal_list" class="overflow-y-auto flex-1 p-2 space-y-1"></ul>
         </div>
     </div>
-    <script src="./js/index.js"></script>
-    <script src="./js/dates.js"></script>
-</body>
 
+    <script src="./js/dates.js"></script>
+    <script src="./js/index.js"></script>
+</body>
 </html>
