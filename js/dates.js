@@ -8,9 +8,18 @@ let event = [
     // Januari
     { label: "Tahun Baru Masehi", date: "0101" },
     { label: "Hari Braille Sedunia", date: "0104" },
+    { label: "HUT Provinsi Jambi", date: "0106" },
+    { label: "HUT Provinsi Kalimantan Timur", date: "0109" },
+    { label: "Hari Gerakan Satu Juta Pohon", date: "0110" },
     { label: "Hari Lingkungan Hidup Indonesia", date: "0110" },
+    { label: "Hari Tritura", date: "0110" },
+    { label: "Hari Tuli Nasional", date: "0111" },
+    { label: "Hari Desa Nasional", date: "0115" },
+    { label: "Hari Pejalan Kaki Nasional", date: "0122" },
+    { label: "Hari Pendidikan Internasional", date: "0124" },
     { label: "Hari Gizi Nasional", date: "0125" },
     { label: "Hari Privasi Data (Data Privacy Day)", date: "0128" },
+    { label: "HUT Provinsi Kalimantan Barat", date: "0128" },
 
     // Februari
     { label: "Hari Kanker Sedunia", date: "0204" },
@@ -21,7 +30,6 @@ let event = [
 
     // Maret
     { label: "Hari Perempuan Internasional", date: "0308" },
-    { label: "Hari XXX Internasionalx", date: "0308" },
     { label: "Hari Musik Nasional", date: "0309" },
     { label: "Hari Pi (Matematika)", date: "0314" },
     { label: "Hari Kebahagiaan Internasional", date: "0320" },
@@ -32,6 +40,7 @@ let event = [
     // April
     { label: "April Mop", date: "0401" },
     { label: "Hari Peduli Autisme Sedunia", date: "0402" },
+    { label: "HUT Kota Sibolga", date: "0402" },
     { label: "Hari Nelayan Nasional", date: "0406" },
     { label: "Hari Kesehatan Sedunia", date: "0407" },
     { label: "HUT Provinsi Sumatera Utara", date: "0415" },
@@ -75,6 +84,7 @@ let event = [
     { label: "Dirgahayu Kemerdekaan RI", date: "0817" },
     { label: "Hari Konstitusi Republik Indonesia", date: "0818" },
     { label: "Hari Televisi Nasional", date: "0824" },
+    { label: "HUT Kabupaten Tapanuli Tengah", date: "0824" },
 
     // September
     { label: "Hari Pelanggan Nasional", date: "0904" },
@@ -92,6 +102,7 @@ let event = [
     { label: "Hari Batik Nasional", date: "1002" },
     { label: "Hari Guru Sedunia", date: "1005" },
     { label: "Hari Tentara Nasional Indonesia (TNI)", date: "1005" },
+    { label: "HUT Kabupaten Tapanuli Utara", date: "1005" },
     { label: "Hari Kesehatan Mental Sedunia", date: "1010" },
     { label: "Hari Pangan Sedunia", date: "1016" },
     { label: "Hari Santri Nasional", date: "1022" },
@@ -105,6 +116,7 @@ let event = [
     { label: "Hari Ayah Nasional", date: "1112" },
     { label: "Hari Kesehatan Nasional", date: "1112" },
     { label: "Hari Diabetes Sedunia", date: "1114" },
+    { label: "HUT Kabupaten Tapanuli Selatan", date: "1124" },
     { label: "Hari Guru Nasional", date: "1125" },
     { label: "Hari Menanam Pohon Indonesia", date: "1128" },
     { label: "Hari KORPRI", date: "1129" },
