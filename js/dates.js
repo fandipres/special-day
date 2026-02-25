@@ -15,6 +15,8 @@ let event = [
     { label: "Hari Tritura", date: "0110" },
     { label: "Hari Tuli Nasional", date: "0111" },
     { label: "Hari Desa Nasional", date: "0115" },
+    { label: "HUT Kabupaten Labuhanbatu Utara", date: "0115" },
+    { label: "HUT Kabupaten Langkat", date: "0117" },
     { label: "Hari Pejalan Kaki Nasional", date: "0122" },
     { label: "Hari Pendidikan Internasional", date: "0124" },
     { label: "Hari Gizi Nasional", date: "0125" },
@@ -30,8 +32,11 @@ let event = [
 
     // Maret
     { label: "Hari Perempuan Internasional", date: "0308" },
+    { label: "HUT Kabupaten Karo", date: "0308" },
     { label: "Hari Musik Nasional", date: "0309" },
+    { label: "HUT Kabupaten Mandailing Natal", date: "0309" },
     { label: "Hari Pi (Matematika)", date: "0314" },
+    { label: "HUT Kabupaten Asahan", date: "0315" },
     { label: "Hari Kebahagiaan Internasional", date: "0320" },
     { label: "Hari Air Sedunia", date: "0322" },
     { label: "Hari Tuberkulosis Sedunia", date: "0324" },
@@ -56,7 +61,9 @@ let event = [
     { label: "Hari Kebebasan Pers Sedunia", date: "0503" },
     { label: "Hari Palang Merah Internasional", date: "0508" },
     { label: "Hari Telekomunikasi & Masyarakat Informasi Sedunia", date: "0517" },
+    { label: "HUT Kota Binjai", date: "0517" },
     { label: "Hari Kebangkitan Nasional", date: "0520" },
+    { label: "HUT Kabupaten Nias Barat", date: "0526" },
     { label: "Hari Lanjut Usia Nasional", date: "0529" },
     { label: "Hari Tanpa Tembakau Sedunia", date: "0531" },
 
@@ -66,15 +73,19 @@ let event = [
     { label: "Hari Laut Sedunia", date: "0608" },
     { label: "Hari Donor Darah Sedunia", date: "0614" },
     { label: "Hari Krida Pertanian", date: "0621" },
+    { label: "HUT Kabupaten Labuhanbatu Selatan", date: "0624" },
     { label: "Hari Keluarga Nasional", date: "0629" },
 
     // Juli
-    { label: "HUT Kota Medan", date: "0701" },
     { label: "Hari Bhayangkara", date: "0701" },
+    { label: "HUT Kabupaten Deli Serdang", date: "0701" },
+    { label: "HUT Kota Medan", date: "0701" },
     { label: "Hari Bank Indonesia", date: "0705" },
     { label: "Hari Populasi Sedunia", date: "0711" },
     { label: "Hari Koperasi Nasional", date: "0712" },
     { label: "Hari Anak Nasional", date: "0723" },
+    { label: "HUT Kabupaten Humbang Hasundutan", date: "0728" },
+    { label: "HUT Kabupaten Nias Selatan", date: "0728" },
 
     // Agustus
     { label: "Hari Ulang Tahun ASEAN", date: "0808" },
@@ -105,9 +116,11 @@ let event = [
     { label: "HUT Kabupaten Tapanuli Utara", date: "1005" },
     { label: "Hari Kesehatan Mental Sedunia", date: "1010" },
     { label: "Hari Pangan Sedunia", date: "1016" },
+    { label: "HUT Kabupaten Labuhanbatu", date: "1017" },
     { label: "Hari Santri Nasional", date: "1022" },
     { label: "Hari Dokter Nasional", date: "1024" },
     { label: "Hari Sumpah Pemuda", date: "1028" },
+    { label: "HUT Kabupaten Nias Utara", date: "1028" },
     { label: "Hari Keuangan Nasional", date: "1030" },
 
     // November
@@ -125,6 +138,7 @@ let event = [
     { label: "Hari AIDS Sedunia", date: "1201" },
     { label: "Hari Literasi Komputer Sedunia", date: "1202" },
     { label: "Hari Disabilitas Internasional", date: "1203" },
+    { label: "HUT Kabupaten Batu Bara", date: "1208" },
     { label: "Hari Anti Korupsi Sedunia", date: "1209" },
     { label: "Hari Hak Asasi Manusia", date: "1210" },
     { label: "Hari Nusantara", date: "1213" },
