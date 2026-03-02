@@ -9,7 +9,7 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
 
 document.querySelectorAll('.btn_theme_toggle').forEach(btn => {
     btn.addEventListener('click', (e) => {
-        if (htmlEl.classList.contains('dark')) { htmlEl.classList.remove('dark'); localStorage.theme = 'light'; updateThemeIcons(false); } 
+        if (htmlEl.classList.contains('dark')) { htmlEl.classList.remove('dark'); localStorage.theme = 'light'; updateThemeIcons(false); }
         else { htmlEl.classList.add('dark'); localStorage.theme = 'dark'; updateThemeIcons(true); }
     });
 });
@@ -23,13 +23,13 @@ let masterEventsData = [];
 if (typeof event !== 'undefined' && Array.isArray(event)) { masterEventsData = event; } else if (typeof window.events !== 'undefined') { masterEventsData = window.events; } else if (typeof window.event !== 'undefined' && Array.isArray(window.event)) { masterEventsData = window.event; }
 
 let countdownInterval, currentDateInput = "", currentMonthInput = "", currentYear = new Date().getFullYear();
-let prevDays, prevHours, prevMins, prevSecs; let confettiFired = false; let isMsgExpanded = false; 
+let prevDays, prevHours, prevMins, prevSecs; let confettiFired = false; let isMsgExpanded = false;
 let customTitle = "", customSender = "", customReceiver = "", customMessage = "";
 
-const fullscreen_area = document.getElementById("fullscreen_area"), controls_section = document.getElementById("controls_section"), el_event = document.getElementById("event"), event_date_subtitle = document.getElementById("event_date_subtitle"); 
+const fullscreen_area = document.getElementById("fullscreen_area"), controls_section = document.getElementById("controls_section"), el_event = document.getElementById("event"), event_date_subtitle = document.getElementById("event_date_subtitle");
 const home_toolbar = document.getElementById("home_toolbar");
-const home_d = document.getElementById("home_d"), home_m = document.getElementById("home_m"), home_y = document.getElementById("home_y"), btn_home_start = document.getElementById("btn_home_start"), btn_home_add_msg = document.getElementById("btn_home_add_msg"); 
-const set_d = document.getElementById("set_d"), set_m = document.getElementById("set_m"), set_y = document.getElementById("set_y"), input_title = document.getElementById("input_title"), input_receiver = document.getElementById("input_receiver"), input_sender = document.getElementById("input_sender"), input_message = document.getElementById("input_message"), text_settings_year_btn = document.getElementById("text_settings_year_btn"); 
+const home_d = document.getElementById("home_d"), home_m = document.getElementById("home_m"), home_y = document.getElementById("home_y"), btn_home_start = document.getElementById("btn_home_start"), btn_home_add_msg = document.getElementById("btn_home_add_msg");
+const set_d = document.getElementById("set_d"), set_m = document.getElementById("set_m"), set_y = document.getElementById("set_y"), input_title = document.getElementById("input_title"), input_receiver = document.getElementById("input_receiver"), input_sender = document.getElementById("input_sender"), input_message = document.getElementById("input_message"), text_settings_year_btn = document.getElementById("text_settings_year_btn");
 const btn_toggle_msg = document.getElementById("btn_toggle_msg"), icon_toggle_msg = document.getElementById("icon_toggle_msg"), container_msg_fields = document.getElementById("container_msg_fields");
 const val_days = document.getElementById("val_days"), val_hours = document.getElementById("val_hours"), val_minutes = document.getElementById("val_minutes"), val_seconds = document.getElementById("val_seconds"), message_done = document.getElementById("message_done");
 const event_modal = document.getElementById("event_modal"), modal_content = document.getElementById("modal_content"), btn_open_modal = document.getElementById("btn_open_modal"), btn_close_modal = document.getElementById("btn_close_modal"), modal_overlay = document.getElementById("modal_overlay"), modal_search = document.getElementById("modal_search"), modal_list = document.getElementById("modal_list");
@@ -46,11 +46,11 @@ home_y.value = currentYear; set_y.value = currentYear; text_settings_year_btn.in
 window.onload = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const paramDate = urlParams.get('d'), paramMonth = urlParams.get('m');
-    
+
     if (paramDate && paramMonth) {
         currentYear = urlParams.get('y') ? parseInt(urlParams.get('y')) : new Date().getFullYear();
         customTitle = urlParams.get('t') || ""; customSender = urlParams.get('s') || ""; customReceiver = urlParams.get('r') || ""; customMessage = urlParams.get('msg') || "";
-        processDirectData(paramDate, paramMonth, currentYear, customTitle); return; 
+        processDirectData(paramDate, paramMonth, currentYear, customTitle); return;
     }
     const savedDate = localStorage.getItem("sd_date"), savedMonth = localStorage.getItem("sd_month");
     if (savedDate && savedMonth) {
@@ -63,19 +63,19 @@ window.onload = () => {
 
 function bindMenuToggle(btnId, menuId) {
     const btn = document.getElementById(btnId); const menu = document.getElementById(menuId);
-    if(!btn || !menu) return;
+    if (!btn || !menu) return;
     const iconMenu = btn.querySelector('.icon-menu'), iconClose = btn.querySelector('.icon-close');
 
     btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const isClosed = menu.classList.contains('opacity-0');
-        if(isClosed) {
-            menu.classList.remove('opacity-0', 'scale-95', 'translate-x-4', 'pointer-events-none');
-            menu.classList.add('opacity-100', 'scale-100', 'translate-x-0', 'pointer-events-auto');
+        if (isClosed) {
+            menu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+            menu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
             iconMenu.classList.add('hidden'); iconClose.classList.remove('hidden');
         } else {
-            menu.classList.add('opacity-0', 'scale-95', 'translate-x-4', 'pointer-events-none');
-            menu.classList.remove('opacity-100', 'scale-100', 'translate-x-0', 'pointer-events-auto');
+            menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+            menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
             iconMenu.classList.remove('hidden'); iconClose.classList.add('hidden');
         }
     });
@@ -109,14 +109,15 @@ function safeOpenModal(modal, content) { if (document.fullscreenElement) { docum
 function safeCloseModal(modal, content) { content.classList.remove("scale-100", "opacity-100"); content.classList.add("scale-95", "opacity-0"); setTimeout(() => { modal.classList.add("hidden"); }, 200); }
 
 function toggleMsgFields(forceOpen = false) {
-    if (forceOpen || !isMsgExpanded) { container_msg_fields.classList.remove("max-h-0", "opacity-0"); container_msg_fields.classList.add("max-h-96", "opacity-100"); icon_toggle_msg.style.transform = "rotate(180deg)"; isMsgExpanded = true;
+    if (forceOpen || !isMsgExpanded) {
+        container_msg_fields.classList.remove("max-h-0", "opacity-0"); container_msg_fields.classList.add("max-h-96", "opacity-100"); icon_toggle_msg.style.transform = "rotate(180deg)"; isMsgExpanded = true;
     } else { container_msg_fields.classList.add("max-h-0", "opacity-0"); container_msg_fields.classList.remove("max-h-96", "opacity-100"); icon_toggle_msg.style.transform = "rotate(0deg)"; isMsgExpanded = false; }
 }
 btn_toggle_msg.addEventListener("click", () => toggleMsgFields());
 
 function checkAutoMatch(d, m) {
-    if (!d || !m) return null; let monthKey = m.slice(0, 3); let fullIndoMonth = full_month_mappings[monthKey] || m; 
-    let customDateLabel = `${d} ${fullIndoMonth}`.toUpperCase(); 
+    if (!d || !m) return null; let monthKey = m.slice(0, 3); let fullIndoMonth = full_month_mappings[monthKey] || m;
+    let customDateLabel = `${d} ${fullIndoMonth}`.toUpperCase();
     let matched = masterEventsData.filter(e => FormatDate(e.date).toUpperCase() === customDateLabel); return matched.length > 0 ? matched[0].label : null;
 }
 function handleSettingsDateChange() { let d = set_d.value.trim(), m = set_m.value, matchedTitle = checkAutoMatch(d, m); if (matchedTitle) { input_title.value = matchedTitle; input_title.classList.add("bg-indigo-50"); setTimeout(() => input_title.classList.remove("bg-indigo-50"), 500); } }
@@ -141,13 +142,13 @@ function setEventData(title, dateStr, monthStr, year) {
 btn_open_settings.addEventListener("click", () => {
     set_d.value = currentDateInput; set_m.value = currentMonthInput; set_y.value = currentYear; text_settings_year_btn.innerText = currentYear;
     input_title.value = customTitle; input_receiver.value = customReceiver; input_sender.value = customSender; input_message.value = customMessage;
-    if(customMessage || customSender || customReceiver) toggleMsgFields(true); else toggleMsgFields(false); safeOpenModal(settings_modal, settings_content);
+    if (customMessage || customSender || customReceiver) toggleMsgFields(true); else toggleMsgFields(false); safeOpenModal(settings_modal, settings_content);
 });
 btn_close_settings.onclick = settings_overlay.onclick = () => safeCloseModal(settings_modal, settings_content);
 btn_save_settings.addEventListener("click", () => {
     let d = set_d.value.trim(), m = set_m.value, y = set_y.value.trim(); if (!d || !m || !y) { alert("Tanggal tidak boleh kosong"); return; }
     customTitle = input_title.value.trim(); customReceiver = input_receiver.value.trim(); customSender = input_sender.value.trim(); customMessage = input_message.value.trim();
-    if(customTitle === "") customTitle = checkAutoMatch(d, m) || `${d} ${full_month_mappings[m] || m} ${y}`;
+    if (customTitle === "") customTitle = checkAutoMatch(d, m) || `${d} ${full_month_mappings[m] || m} ${y}`;
     processDirectData(d, m, y, customTitle); safeCloseModal(settings_modal, settings_content);
 });
 btn_reset_home.addEventListener("click", () => { safeCloseModal(settings_modal, settings_content); resetDisplay(); localStorage.clear(); if (document.fullscreenElement) document.exitFullscreen(); });
@@ -156,19 +157,19 @@ let isModalFromSettings = false;
 btn_open_modal.addEventListener("click", () => { isModalFromSettings = false; renderModalList(""); modal_search.value = ""; safeOpenModal(event_modal, modal_content); modal_search.focus(); });
 btn_settings_browse.addEventListener("click", () => { isModalFromSettings = true; renderModalList(""); modal_search.value = ""; safeOpenModal(event_modal, modal_content); modal_search.focus(); });
 btn_close_modal.onclick = modal_overlay.onclick = () => safeCloseModal(event_modal, modal_content);
-modal_search.oninput = function() { renderModalList(this.value); };
+modal_search.oninput = function () { renderModalList(this.value); };
 
 function renderModalList(searchQuery) {
     modal_list.innerHTML = "";
     let filteredEvents = masterEventsData.filter(e => e.label.toLowerCase().includes(searchQuery.toLowerCase()) || FormatDate(e.date).toLowerCase().includes(searchQuery.toLowerCase()));
-    if(filteredEvents.length === 0) { modal_list.innerHTML = `<li class="p-4 text-center text-slate-400 dark:text-slate-500">Pencarian tidak ditemukan</li>`; return; }
+    if (filteredEvents.length === 0) { modal_list.innerHTML = `<li class="p-4 text-center text-slate-400 dark:text-slate-500">Pencarian tidak ditemukan</li>`; return; }
 
     filteredEvents.forEach(e => {
         let li = document.createElement("li"); li.className = "flex justify-between items-center p-3 hover:bg-indigo-50 dark:hover:bg-indigo-900/50 rounded-xl cursor-pointer transition-colors group";
         li.innerHTML = `<span class="font-medium text-slate-700 dark:text-slate-300 group-hover:text-indigo-700 dark:group-hover:text-indigo-400">${e.label}</span><span class="text-sm text-slate-400 dark:text-slate-400 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-md group-hover:bg-indigo-100 dark:group-hover:bg-indigo-900">${FormatDate(e.date)}</span>`;
         li.addEventListener("click", () => {
-            let parts = FormatDate(e.date).toUpperCase().split(" "); let d = parts[0], mFull = parts[1]; let mCode = Object.keys(full_month_mappings).find(key => full_month_mappings[key].toUpperCase() === mFull) || mFull.slice(0,3);
-            if (isModalFromSettings) { set_d.value = d; set_m.value = mCode; input_title.value = e.label; safeCloseModal(event_modal, modal_content); } 
+            let parts = FormatDate(e.date).toUpperCase().split(" "); let d = parts[0], mFull = parts[1]; let mCode = Object.keys(full_month_mappings).find(key => full_month_mappings[key].toUpperCase() === mFull) || mFull.slice(0, 3);
+            if (isModalFromSettings) { set_d.value = d; set_m.value = mCode; input_title.value = e.label; safeCloseModal(event_modal, modal_content); }
             else { home_d.value = d; home_m.value = mCode; customSender = ""; customReceiver = ""; customMessage = ""; safeCloseModal(event_modal, modal_content); processDirectData(d, mCode, home_y.value, e.label); }
         }); modal_list.appendChild(li);
     });
@@ -184,11 +185,11 @@ document.getElementById("btn_share").addEventListener("click", () => {
     navigator.clipboard.writeText(shareUrl).then(() => { document.getElementById("share_tooltip").classList.remove("opacity-0"); setTimeout(() => document.getElementById("share_tooltip").classList.add("opacity-0"), 2000); });
 });
 
-document.getElementById("btn_fullscreen").addEventListener("click", () => { if (!document.fullscreenElement) { fullscreen_area.requestFullscreen().then(() => { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {}); }).catch(err => alert(`Gagal Fullscreen: ${err.message}`)); } else document.exitFullscreen(); });
+document.getElementById("btn_fullscreen").addEventListener("click", () => { if (!document.fullscreenElement) { fullscreen_area.requestFullscreen().then(() => { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => { }); }).catch(err => alert(`Gagal Fullscreen: ${err.message}`)); } else document.exitFullscreen(); });
 document.addEventListener("fullscreenchange", () => {
-    let labels = document.querySelectorAll('.fullscreen-label');
-    if (document.fullscreenElement) { labels.forEach(l => { l.classList.remove("text-slate-500", "dark:text-slate-400"); l.classList.add("text-slate-400"); }); } 
-    else { if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock(); labels.forEach(l => { l.classList.add("text-slate-500", "dark:text-slate-400"); l.classList.remove("text-slate-400"); }); }
+    if (!document.fullscreenElement) {
+        if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
+    }
 });
 
 function resetDisplay() {
@@ -198,7 +199,7 @@ function resetDisplay() {
 
 function showError(message) {
     home_toolbar.classList.add("hidden"); fullscreen_area.classList.remove("hidden"); controls_section.classList.add("hidden");
-    el_event.innerHTML = "⚠️ INPUT TIDAK VALID"; event_date_subtitle.classList.add("hidden"); btn_open_msg.classList.add("hidden"); 
+    el_event.innerHTML = "⚠️ INPUT TIDAK VALID"; event_date_subtitle.classList.add("hidden"); btn_open_msg.classList.add("hidden");
     updateCardValue(val_days, "00", prevDays); updateCardValue(val_hours, "00", prevHours); updateCardValue(val_minutes, "00", prevMins); updateCardValue(val_seconds, "00", prevSecs);
     prevDays = "00"; prevHours = "00"; prevMins = "00"; prevSecs = "00";
     message_done.innerHTML = message; message_done.classList.remove("hidden", "text-rose-500", "animate-pulse"); message_done.classList.add("text-amber-500"); clearInterval(countdownInterval);
@@ -218,7 +219,7 @@ function fireConfetti() {
 }
 
 function StartCountDown(date, month, year) {
-    clearInterval(countdownInterval); if (!date || !month) return; confettiFired = false; 
+    clearInterval(countdownInterval); if (!date || !month) return; confettiFired = false;
     home_toolbar.classList.add("hidden"); controls_section.classList.add("hidden"); fullscreen_area.classList.remove("hidden");
     message_done.classList.add("hidden"); message_done.classList.remove("text-amber-500"); message_done.classList.add("text-rose-500", "animate-pulse"); message_done.innerHTML = "🎉 Waktunya Tiba! 🎉";
     let monthEng = month_mappings[month] || month; let targetTime = new Date(`${monthEng} ${date}, ${year} 00:00:00`).getTime();

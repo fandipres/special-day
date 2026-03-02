@@ -40,7 +40,7 @@
     </script>
     <style>
         #fullscreen_area:fullscreen {
-            background-color: #0f172a;
+            background-color: #f8fafc;
             display: flex !important;
             flex-direction: column !important;
             justify-content: center !important;
@@ -54,8 +54,19 @@
             box-shadow: none;
         }
 
+        html.dark #fullscreen_area:fullscreen {
+            background-color: #0f172a;
+        }
+
+        ::backdrop {
+            background-color: #f8fafc;
+        }
+
+        html.dark ::backdrop {
+            background-color: #0f172a;
+        }
+
         #fullscreen_area:fullscreen h2 {
-            color: #f8fafc;
             font-size: clamp(1.5rem, 6vmin, 4.5rem) !important;
             margin-bottom: 0;
             line-height: 1.2;
@@ -63,7 +74,6 @@
         }
 
         #fullscreen_area:fullscreen #event_date_subtitle {
-            color: #94a3b8 !important;
             font-size: clamp(0.9rem, 3vmin, 1.8rem) !important;
             margin-top: 1.5vh !important;
         }
@@ -73,16 +83,9 @@
         }
 
         #fullscreen_area:fullscreen #btn_open_msg {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #f8fafc;
-            border-color: rgba(255, 255, 255, 0.2);
             font-size: clamp(0.8rem, 2.5vmin, 1.5rem) !important;
             padding: 1vh 3vw !important;
             margin-top: 3vh !important;
-        }
-
-        #fullscreen_area:fullscreen #btn_open_msg:hover {
-            background-color: rgba(255, 255, 255, 0.2);
         }
 
         #fullscreen_area:fullscreen .flex.justify-center.gap-2 {
@@ -105,19 +108,6 @@
             margin-top: 2vmin !important;
         }
 
-        #fullscreen_area:fullscreen #message_done {
-            font-size: clamp(1.5rem, 5vmin, 4rem) !important;
-            position: absolute;
-            bottom: 5vh;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-        }
-
-        ::backdrop {
-            background-color: #0f172a;
-        }
-
         #fullscreen_area:fullscreen #action_toolbar {
             position: fixed !important;
             top: 1.5rem !important;
@@ -126,31 +116,21 @@
             transform: scale(1.1);
         }
 
-        #fullscreen_area:fullscreen #action_toolbar>div>button.btn-toggle-menu,
-        #fullscreen_area:fullscreen .menu-inner-container {
-            background-color: rgba(255, 255, 255, 0.1) !important;
-            border-color: rgba(255, 255, 255, 0.2) !important;
-            color: #94a3b8;
-            backdrop-filter: blur(12px);
-        }
-
-        #fullscreen_area:fullscreen .menu-inner-container button {
-            color: #94a3b8;
-            background-color: transparent;
-        }
-
-        #fullscreen_area:fullscreen .menu-inner-container button:hover,
-        #fullscreen_area:fullscreen #action_toolbar>div>button.btn-toggle-menu:hover {
-            color: #ffffff;
-            background-color: rgba(255, 255, 255, 0.2) !important;
-        }
-
         #fullscreen_area:fullscreen .icon-expand {
             display: none;
         }
 
         #fullscreen_area:fullscreen .icon-compress {
             display: block;
+        }
+
+        #fullscreen_area:fullscreen #message_done {
+            font-size: clamp(1.5rem, 5vmin, 4rem) !important;
+            position: absolute;
+            bottom: 5vh;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
         }
 
         ::-webkit-scrollbar {
@@ -277,7 +257,7 @@
         </div>
 
         <div id="home_toolbar" class="absolute top-4 right-4 sm:top-5 sm:right-5 z-50 transition-all duration-300">
-            <div class="relative flex items-center justify-end">
+            <div class="relative flex items-start sm:items-center justify-end">
                 <button id="btn_toggle_home"
                     class="btn-toggle-menu relative z-20 p-2.5 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all">
                     <svg class="w-5 h-5 sm:w-6 sm:h-6 icon-menu" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -292,13 +272,13 @@
                     </svg>
                 </button>
                 <div id="home_menu_items"
-                    class="menu-items-container absolute right-0 pr-14 transition-all duration-300 origin-right opacity-0 pointer-events-none scale-95 translate-x-4">
+                    class="menu-items-container absolute top-0 right-0 pt-14 sm:pt-0 sm:pr-14 transition-all duration-300 origin-top sm:origin-right opacity-0 pointer-events-none scale-95">
                     <div
-                        class="flex items-center gap-1 sm:gap-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-1.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 menu-inner-container">
+                        class="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-1.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 menu-inner-container">
                         <button
                             class="btn_info p-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-700 rounded-lg transition-colors"
-                            title="Informasi"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
+                            title="Informasi"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg></button>
@@ -312,8 +292,8 @@
                             </svg></button>
                         <button
                             class="btn_install hidden p-2 text-slate-500 dark:text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 rounded-lg transition-colors"
-                            title="Instal"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
+                            title="Instal"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                             </svg></button>
@@ -400,7 +380,7 @@
 
             <div id="action_toolbar"
                 class="absolute top-4 right-4 sm:top-5 sm:right-5 z-50 transition-all duration-300">
-                <div class="relative flex items-center justify-end">
+                <div class="relative flex items-start sm:items-center justify-end">
                     <button id="btn_toggle_action"
                         class="btn-toggle-menu relative z-20 p-2.5 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all">
                         <svg class="w-5 h-5 sm:w-6 sm:h-6 icon-menu" fill="none" stroke="currentColor"
@@ -416,28 +396,28 @@
                         </svg>
                     </button>
                     <div id="action_menu_items"
-                        class="menu-items-container absolute right-0 pr-14 transition-all duration-300 origin-right opacity-0 pointer-events-none scale-95 translate-x-4">
+                        class="menu-items-container absolute top-0 right-0 pt-14 sm:pt-0 sm:pr-14 transition-all duration-300 origin-top sm:origin-right opacity-0 pointer-events-none scale-95">
                         <div
-                            class="flex items-center gap-1 sm:gap-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-1.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 menu-inner-container">
+                            class="flex flex-col sm:flex-row items-center gap-1.5 sm:gap-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md p-1.5 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 menu-inner-container">
                             <button
                                 class="btn_info p-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-700 rounded-lg transition-colors"
-                                title="Informasi"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
+                                title="Informasi"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg></button>
                             <button
                                 class="btn_donate p-2 text-slate-500 dark:text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-slate-700 rounded-lg transition-colors"
-                                title="Dukung"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
+                                title="Dukung"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
                                     </path>
                                 </svg></button>
                             <button
                                 class="btn_install hidden p-2 text-slate-500 dark:text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-slate-700 rounded-lg transition-colors"
-                                title="Instal"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none"
-                                    stroke="currentColor" viewBox="0 0 24 24">
+                                title="Instal"><svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                                 </svg></button>
@@ -454,7 +434,7 @@
                                         d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z">
                                     </path>
                                 </svg></button>
-                            <button id="btn_open_settings" title="Pengaturan"
+                            <button id="btn_open_settings" title="Pengaturan Momen"
                                 class="p-2 text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-slate-700 rounded-lg transition-colors"><svg
                                     class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -481,7 +461,7 @@
                                 </svg><svg class="w-5 h-5 sm:w-6 sm:h-6 icon-compress hidden" fill="none"
                                     stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 14h6m0 0v6m0-6l-7 7m17-11h-6m0 0V4m0 6l-7-7M4 10h6m0 0V4m0 6l-7-7m17 11h-6m0 0v6m0-6l7 7">
+                                        d="M4 14h6m0 0v6m0-6l-7 7m17-11h-6m0 0V4m0 6l7-7M4 10h6m0 0V4m0 6l-7-7m17 11h-6m0 0v6m0-6l7 7">
                                     </path>
                                 </svg></button>
                         </div>
@@ -711,7 +691,8 @@
 
             <div
                 class="text-left text-xs text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-900 p-4 rounded-xl mb-6 space-y-3 border border-slate-100 dark:border-slate-700">
-                <p><strong class="text-slate-700 dark:text-slate-200">🔒 Kebijakan Privasi:</strong> Seluruh data event dan
+                <p><strong class="text-slate-700 dark:text-slate-200">🔒 Kebijakan Privasi:</strong> Seluruh data event
+                    dan
                     pesan Anda hanya disimpan secara lokal di perangkat Anda. Kami tidak melacak atau menyimpan data
                     Anda di server.</p>
                 <p><strong class="text-slate-700 dark:text-slate-200">⚠️ Penyangkalan:</strong> Aplikasi ini disediakan
