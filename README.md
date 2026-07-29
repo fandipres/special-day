@@ -1,4 +1,4 @@
-﻿# 🎉 Special Day Countdown (Web App)
+﻿# 🎉 Special Day Countdown
 
 A modern, elegant, and highly interactive web-based countdown timer designed to help you anticipate your special moments. Featuring 3D flip card animations, a shareable custom message system, and a stunning fullscreen mode.
 
